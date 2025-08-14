@@ -1,6 +1,8 @@
 from dotenv import load_dotenv;
 from langchain.prompts.prompt import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 from langchain_openai import ChatOpenAI
+from langchain_ollama import ChatOllama
 import os
 
 load_dotenv()
@@ -51,19 +53,18 @@ if __name__ == '__main__':
     print(__name__)
 
     summary_template = """
-         given the Linkedin information {information} about a person I want you to create:
-    1. A short summary
-    2. two interesting facts about them
+         write me song about pizza
         """
 
     summary_prompt_template = PromptTemplate(
         input_variables=["information"], template=summary_template
     )
 
-    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+    # llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+    llm = ChatOllama(model="llama3")
 
-    chain = summary_prompt_template | llm
+    chain = summary_prompt_template | llm | StrOutputParser()
 
-    res = chain.invoke(input={"information": "United States"})
+    res = chain.invoke(input={"information": information})
 
     print(os.environ['COOL_API'],res)
