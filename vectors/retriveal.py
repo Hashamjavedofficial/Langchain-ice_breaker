@@ -46,32 +46,32 @@ if __name__ == "__main__":
 
     print("result", result)
 
-    template = """
-    Answer any use questions based solely on the context below, If you don't know the answer say 'I don't know' or 'I am not sure. Don't try to make up the answer
-
-<context>
-{context}
-</context>
-
-Question: {question}
-
-Helpful Answer:
-
-"""
-
-    custom_rag_prompt = PromptTemplate.from_template(template=template)
-
-    vector_docs = vector_store.as_retriever()
-
-    rag_chain = (
-        {
-            "context": vector_docs | format_docs,
-            "question": RunnablePassthrough(),
-        }
-        | custom_rag_prompt
-        | llm
-    )
-
-    res = rag_chain.invoke(input={"input": query})
-
-    print(res)
+#     template = """
+#     Answer any use questions based solely on the context below, If you don't know the answer say 'I don't know' or 'I am not sure. Don't try to make up the answer
+#
+# <context>
+# {context}
+# </context>
+#
+# Question: {question}
+#
+# Helpful Answer:
+#
+# """
+#
+#     custom_rag_prompt = PromptTemplate.from_template(template=template)
+#
+#     vector_docs = vector_store.as_retriever()
+#
+#     rag_chain = (
+#         {
+#             "context": vector_docs | format_docs,
+#             "question": RunnablePassthrough(),
+#         }
+#         | custom_rag_prompt
+#         | llm
+#     )
+#
+#     res = rag_chain.invoke(query)
+#
+#     print(res)
